@@ -1,11 +1,8 @@
 package ca.verworn.nat;
 
-import java.io.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.util.HashMap;
-import java.util.Date;
 import static ca.verworn.nat.Utils.*;
 
 /**
@@ -13,9 +10,9 @@ import static ca.verworn.nat.Utils.*;
  * @author Evan Verworn <evan.verworn@dsbn.org>
  */
 public class Broker {
-    public HashMap<String, ClientIndex> clients;
+    public static HashMap<String, ClientIndex> clients = new HashMap<>();
     
-    public void listen() throws Exception {
+    public static void main(String[] args) throws Exception {
         DatagramSocket socket = new DatagramSocket(6666);
         
         while (true) {

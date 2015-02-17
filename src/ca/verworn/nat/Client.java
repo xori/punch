@@ -21,12 +21,33 @@ public class Client {
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
         DatagramSocket socket = new DatagramSocket(r.nextInt(100)+10000);
         
+        Greetings b = new Greetings();
+        b.requesting = "People";
+        b.tag = "People";
+        
+        ClientIndex server = new ClientIndex();
+        server.address = InetAddress.getByName("stun.verworn.ca");
+        server.port = 6666;
+        
+        socket.send(Package(b, server));
+        
         Log("Listening on", socket.getLocalPort());
         socket.receive(packet);
-        
-        Greetings b = new Greetings();
-        
-        socket.send()
+        Log("Recieved Packet", packet.getAddress(), packet.getPort());
+        Object o = ReadIn(packet.getData());
+        Log("Object:", o.getClass().getCanonicalName());
+        ClientIndex client = (ClientIndex) o;
+        Log("Client Found:", client.address, client.port);
+        socket.setSoTimeout(3000);
+        for(int i = 0; i < 10; i++) {
+            socket.send(Package("hi", client));
+            try {
+                socket.receive(packet);
+                Log("Heard from Client!", packet.getAddress(), packet.getPort());
+            } catch (Exception e){
+                Log("Silience...");
+            }
+        }
     }
     
 }

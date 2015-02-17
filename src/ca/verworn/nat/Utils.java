@@ -42,7 +42,7 @@ public class Utils {
     }
     
     public static void Log(Object ... o) {
-        System.out.print(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));
+        System.out.print(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()) + " ");
         for(Object i : o){
             System.out.print(i.toString() + ' ');
         } System.out.println();
