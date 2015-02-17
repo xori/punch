@@ -19,6 +19,7 @@ public class Utils {
         try {
             ByteArrayInputStream raw = new ByteArrayInputStream(input);
             ObjectInputStream in = new ObjectInputStream(raw);
+            Log("<- Decoded");
             return in.readObject();
         } catch(IOException | ClassNotFoundException e){
             Log("Exception", e.getMessage());
@@ -34,6 +35,8 @@ public class Utils {
             out.flush();
             DatagramPacket packet = new DatagramPacket(buffer.toByteArray(), buffer.size());
             packet.setAddress(to.address);
+            packet.setPort(to.port);
+            Log("->", packet.getAddress()+":"+packet.getPort());
             return packet;
         } catch(Exception e){
             Log("Exception", e.getMessage());

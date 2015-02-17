@@ -25,14 +25,15 @@ public class Broker {
             Greetings g = (Greetings) ReadIn(packet.getData());
             client.tag = g.tag;
             client.request = g.requesting;
-            
+            Log(client.address.getHostAddress()+":"+client.port,
+                    "(",client.tag,")", "requesting", client.request);
             for(ClientIndex c : clients.values()){
                 if(c.tag.equals(client.request)) {
                     socket.send(Package(client, c));
                     socket.send(Package(c, client));
                 }
             }
-            clients.put(client.address.getHostAddress(), client);
+            clients.put(client.address.getHostAddress()+":"+client.port, client);
         }
     }
     

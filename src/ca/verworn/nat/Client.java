@@ -22,8 +22,11 @@ public class Client {
         DatagramSocket socket = new DatagramSocket(r.nextInt(100)+10000);
         
         Greetings b = new Greetings();
-        b.requesting = "People";
-        b.tag = "People";
+        b.requesting = args.length > 0 ? args[0] : "People";
+        b.tag = args.length > 1 ? args[1] : "People";
+        if(args.length == 0) {
+            Log("USAGE: NAT.jar [request] [tag]");
+        }
         
         ClientIndex server = new ClientIndex();
         server.address = InetAddress.getByName("stun.verworn.ca");
